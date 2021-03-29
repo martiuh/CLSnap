@@ -7,13 +7,15 @@ import {
   LayoutShiftInterface,
   Overwrite,
 } from '../types/interfaces';
+import { unique } from '../utils/unique';
 
 export interface ShifterState {
+  id: string;
   layoutShift: LayoutShiftInterface;
-  node: HTMLElement;
+  node: string;
 }
 
-export type SyncShifterState = Record<keyof ShifterState, string>;
+export type SyncShifterState = Overwrite<ShifterState, { layoutShift: string }>;
 
 export type ShifterActions = 'SAVE' | 'CLEAR';
 
@@ -28,7 +30,7 @@ export const SHIFTER_KEY = 'shifterState';
 
 export const getShifterState = () =>
   new Promise<SyncShifterState[]>((resolve, reject) => {
-    chrome.storage.sync.get([SHIFTER_KEY], (items) => {
+    chrome.storage.local.get([SHIFTER_KEY], (items) => {
       const syncState = items[SHIFTER_KEY];
 
       if (syncState) {
@@ -53,18 +55,21 @@ export const listenShifterState = (callback: ShifterCallback) => {
 };
 
 export const writeShifterState = (state: SyncShifterState[]) => {
-  chrome.storage.sync.set({ [SHIFTER_KEY]: state });
+  chrome.storage.local.set({ [SHIFTER_KEY]: state });
 };
 
-export const concatenateShifts = async (shift: ShifterState) => {
+export type NoIdShifterState = Omit<ShifterState, 'id'>;
+
+export const concatenateShifts = async (shift: NoIdShifterState) => {
   const currentState = await getShifterState();
-  const nextState = [...currentState, stringifyShift(shift)];
+  const nextState = [...currentState, createShift(shift)];
   writeShifterState(nextState);
 };
 
-const stringifyShift = (shift: ShifterState): SyncShifterState => {
+const createShift = (shift: NoIdShifterState): SyncShifterState => {
   return {
+    id: unique(),
     layoutShift: JSON.stringify(shift.layoutShift),
-    node: shift.node.innerHTML,
+    node: shift.node,
   };
 };

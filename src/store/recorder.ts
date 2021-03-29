@@ -19,7 +19,7 @@ export const RECORDER_KEY = 'recorderState';
 
 export const getRecorderState = () =>
   new Promise<RecorderActions>((resolve, reject) => {
-    chrome.storage.sync.get([RECORDER_KEY], (items) => {
+    chrome.storage.local.get([RECORDER_KEY], (items) => {
       const syncRecorderState = items[RECORDER_KEY];
 
       if (syncRecorderState) {
@@ -42,5 +42,5 @@ export const listenRecorderState = (callback: GenericRecorderCallback) => {
 };
 
 export const setRecorderState = (action: RecorderActions) => {
-  chrome.storage.sync.set({ [RECORDER_KEY]: action });
+  chrome.storage.local.set({ [RECORDER_KEY]: action });
 };

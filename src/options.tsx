@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import ReactDOM from "react-dom";
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom';
 
 const Options = () => {
   const [color, setColor] = useState<string>();
@@ -9,9 +9,9 @@ const Options = () => {
   useEffect(() => {
     // Restores select box and checkbox state using the preferences
     // stored in chrome.storage.
-    chrome.storage.sync.get(
+    chrome.storage.local.get(
       {
-        favoriteColor: "red",
+        favoriteColor: 'red',
         likesColor: true,
       },
       (items) => {
@@ -22,15 +22,15 @@ const Options = () => {
   }, []);
 
   const saveOptions = () => {
-    // Saves options to chrome.storage.sync.
-    chrome.storage.sync.set(
+    // Saves options to chrome.storage.local.
+    chrome.storage.local.set(
       {
         favoriteColor: color,
         likesColor: like,
       },
       () => {
         // Update status to let user know options were saved.
-        setStatus("Options saved.");
+        setStatus('Options saved.');
         const id = setTimeout(() => {
           setStatus(undefined);
         }, 1000);
@@ -73,5 +73,5 @@ ReactDOM.render(
   <React.StrictMode>
     <Options />
   </React.StrictMode>,
-  document.getElementById("root")
+  document.getElementById('root')
 );

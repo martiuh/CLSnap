@@ -19,11 +19,12 @@ import {
   writeShifterState,
 } from './store/shifter';
 
-const perfObserver = getPerformanceObserver((cls, entry) => {
-  concatenateShifts({
+const perfObserver = getPerformanceObserver(async (cls, entry) => {
+  await concatenateShifts({
     layoutShift: entry,
     // IDEA: you can chose to just run the layout shifts for certain elements
-    node: document.querySelector('html') as HTMLElement,
+    node:
+      document.querySelector('html')?.innerHTML ?? '<h1>Node not found</h1>',
   });
 });
 

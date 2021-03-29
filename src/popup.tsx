@@ -54,7 +54,7 @@ const Popup = (props: PopupProps) => {
   };
 
   const syncRecorderStatus = (state: RecorderActions) => {
-    chrome.storage.sync.set({ [RECORDER_KEY]: state });
+    chrome.storage.local.set({ [RECORDER_KEY]: state });
     tellPage({ namespace: RECORDER_KEY, action: state });
   };
 
@@ -92,7 +92,7 @@ const Popup = (props: PopupProps) => {
   );
 };
 
-chrome.storage.sync.get([RECORDER_KEY], (items) => {
+chrome.storage.local.get([RECORDER_KEY], (items) => {
   // Loading the app after we have a certain initial state
   const initialState: RecorderActions = items[RECORDER_KEY] ?? 'IDLE';
 

@@ -22,7 +22,7 @@ export const ROUTER_KEY = 'routerState';
 
 export const getRouterState = () =>
   new Promise<RouterActions[]>((resolve, reject) => {
-    chrome.storage.sync.get([ROUTER_KEY], (items) => {
+    chrome.storage.local.get([ROUTER_KEY], (items) => {
       const syncState = items[ROUTER_KEY];
 
       if (syncState) {
@@ -33,5 +33,5 @@ export const getRouterState = () =>
   });
 
 export const setRouterState = (state: RouterActions[]) => {
-  chrome.storage.sync.set({ [ROUTER_KEY]: state });
+  chrome.storage.local.set({ [ROUTER_KEY]: state });
 };

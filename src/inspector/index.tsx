@@ -12,8 +12,8 @@ const root = document.getElementById('__inspector-app');
 (async function () {
   const shifter = await getShifterState();
   const transformShifts = shifter.map((shift) => ({
+    ...shift,
     layoutShift: JSON.parse(shift.layoutShift),
-    node: shift.node,
   }));
 
   render(<Inspector shifts={transformShifts} />, root);
