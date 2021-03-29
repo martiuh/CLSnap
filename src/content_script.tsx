@@ -1,14 +1,30 @@
 import { getPerformanceObserver } from './lib/getPerformanceObserver';
-import { MessengerInterface } from './lib/messenger';
+import {
+  createMessenger,
+  messenger,
+  MessengerInterface,
+} from './lib/messenger';
 import {
   RECORDER_KEY,
   RecorderMessengerType,
   getRecorderState,
+  setRecorderState,
+  RecorderActions,
 } from './store/recorder';
-import { ShifterMessengerType, SHIFTER_KEY } from './store/shifter';
+import { RouterActions, ROUTER_KEY } from './store/router';
+import {
+  concatenateShifts,
+  ShifterMessengerType,
+  SHIFTER_KEY,
+  writeShifterState,
+} from './store/shifter';
 
 const perfObserver = getPerformanceObserver((cls, entry) => {
-  console.log(entry);
+  concatenateShifts({
+    layoutShift: entry,
+    // IDEA: you can chose to just run the layout shifts for certain elements
+    node: document.querySelector('html') as HTMLElement,
+  });
 });
 
 chrome.runtime.onMessage.addListener(function (
@@ -27,14 +43,24 @@ chrome.runtime.onMessage.addListener(function (
 });
 
 const manageRecorderState = (params: RecorderMessengerType) => {
-  const { action, payload } = params;
+  const { action } = params;
+
+  const resetShifterState = () => writeShifterState([]);
+
+  const routerMessenger = createMessenger<RouterActions>(ROUTER_KEY);
 
   switch (action) {
     case 'STOPPED':
+      perfObserver.stop();
+      routerMessenger({ action: 'SHIFT_TABS' });
       break;
 
     case 'RECORDING':
+      resetShifterState();
       perfObserver.start();
+
+    case 'RELOAD_AND_RECORD':
+      resetShifterState();
 
     default:
       break;
@@ -42,7 +68,7 @@ const manageRecorderState = (params: RecorderMessengerType) => {
 };
 
 const manageShifterState = (params: ShifterMessengerType) => {
-  const { action, payload } = params;
+  const { action } = params;
 
   switch (action) {
     case 'SAVE': {

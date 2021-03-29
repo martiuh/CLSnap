@@ -1,3 +1,5 @@
+import { messenger } from './messenger';
+
 /**
  *
  * @description simple print command for debugging purposes
@@ -5,6 +7,6 @@
  */
 export const print = (...msg: any): void => {
   if (chrome && chrome.runtime) {
-    chrome.runtime.sendMessage({ type: 'log', payload: msg });
+    messenger({ namespace: 'COMMON', action: 'log', payload: msg });
   }
 };

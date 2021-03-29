@@ -1,23 +1,24 @@
 import { MessengerInterface } from '../lib/messenger';
 import { GenericCallback, Overwrite } from '../types/interfaces';
 
-export type RecorderState =
+export type RecorderActions =
   | 'RELOAD_AND_RECORD'
   | 'RECORDING'
   | 'STOPPED'
+  | 'INSPECTING'
   | 'IDLE';
 
-export type GenericRecorderCallback = GenericCallback<RecorderState>;
+export type GenericRecorderCallback = GenericCallback<RecorderActions>;
 
 export type RecorderMessengerType = Overwrite<
   MessengerInterface,
-  { action: RecorderState }
+  { action: RecorderActions }
 >;
 
 export const RECORDER_KEY = 'recorderState';
 
 export const getRecorderState = () =>
-  new Promise<RecorderState>((resolve, reject) => {
+  new Promise<RecorderActions>((resolve, reject) => {
     chrome.storage.sync.get([RECORDER_KEY], (items) => {
       const syncRecorderState = items[RECORDER_KEY];
 
@@ -38,4 +39,8 @@ export const listenRecorderState = (callback: GenericRecorderCallback) => {
       }
     }
   });
+};
+
+export const setRecorderState = (action: RecorderActions) => {
+  chrome.storage.sync.set({ [RECORDER_KEY]: action });
 };

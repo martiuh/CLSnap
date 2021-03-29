@@ -5,19 +5,19 @@ import { theme } from './theme';
 import {
   getRecorderState,
   listenRecorderState,
-  RecorderState,
+  RecorderActions,
   RECORDER_KEY,
 } from './store/recorder';
 import { print } from './lib/print';
 
 type PopupProps = {
-  initialState: RecorderState;
+  initialState: RecorderActions;
 };
 
 const Popup = (props: PopupProps) => {
   const { initialState } = props;
 
-  const [recorderState, setRecorderState] = useState<RecorderState>(
+  const [recorderState, setRecorderState] = useState<RecorderActions>(
     initialState
   );
 
@@ -39,7 +39,6 @@ const Popup = (props: PopupProps) => {
     action: string;
     payload?: any;
   }) => {
-    print(action);
     chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
       const tab = tabs[0];
       if (tab.id) {
@@ -54,7 +53,7 @@ const Popup = (props: PopupProps) => {
     });
   };
 
-  const syncRecorderStatus = (state: RecorderState) => {
+  const syncRecorderStatus = (state: RecorderActions) => {
     chrome.storage.sync.set({ [RECORDER_KEY]: state });
     tellPage({ namespace: RECORDER_KEY, action: state });
   };
@@ -95,7 +94,7 @@ const Popup = (props: PopupProps) => {
 
 chrome.storage.sync.get([RECORDER_KEY], (items) => {
   // Loading the app after we have a certain initial state
-  const initialState: RecorderState = items[RECORDER_KEY] ?? 'IDLE';
+  const initialState: RecorderActions = items[RECORDER_KEY] ?? 'IDLE';
 
   ReactDOM.render(
     <React.StrictMode>
