@@ -1,5 +1,4 @@
 import { LayoutShiftInterface } from '../types/interfaces';
-import { print } from './print';
 
 export type PerfObserverCallback = (
   cls: number,
@@ -26,7 +25,8 @@ export function getPerformanceObserver(
 ): PerfObserver {
   let cls = 0;
   const perfObserver = new PerformanceObserver((entryList) => {
-    for (const e of entryList.getEntries()) {
+    const entries = entryList.getEntries();
+    for (const e of entries) {
       const entry = e as LayoutShiftInterface;
       if (!entry.hadRecentInput) {
         cls += entry.value;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-export interface UseSelectedProps {
-  items: any[];
+export interface UseSelectedProps<ITEM> {
+  items: ITEM[];
   initialIndex?: number;
   config?: {
     /**
@@ -12,12 +12,16 @@ export interface UseSelectedProps {
   };
 }
 
-export interface UseSelectedInterface {
-  currentItem: any;
+export interface Handler {
+  onClick: () => void;
+  disabled: boolean;
+}
+export interface UseSelectedInterface<ITEM> {
+  currentItem: ITEM;
   currentIndex: number;
   jsxProps: {
-    nextHandler: any;
-    prevHandler: any;
+    nextHandler: Handler;
+    prevHandler: Handler;
   };
   programmatic: {
     goNext: () => void;
@@ -28,7 +32,9 @@ export interface UseSelectedInterface {
 
 export type SelectItemFunction = (nextIndex: number) => void;
 
-export function useSelected(props: UseSelectedProps): UseSelectedInterface {
+export function useSelected<ITEM>(
+  props: UseSelectedProps<ITEM>
+): UseSelectedInterface<ITEM> {
   const { items, initialIndex } = props;
   const itemsCount = items.length;
   const [currentIndex, setCurrentIndex] = useState(

@@ -1,10 +1,8 @@
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 import React from 'react';
 import { render } from 'react-dom';
-import {
-  getShifterState,
-  ShifterState,
-  SyncShifterState,
-} from '../store/shifter';
+import { getShifterState } from '../store/shifter';
+import { theme } from '../theme';
 import { Inspector } from './inspector';
 
 const root = document.getElementById('__inspector-app');
@@ -16,5 +14,10 @@ const root = document.getElementById('__inspector-app');
     layoutShift: JSON.parse(shift.layoutShift),
   }));
 
-  render(<Inspector shifts={transformShifts} />, root);
+  render(
+    <ChakraProvider theme={extendTheme(theme)}>
+      <Inspector shifts={transformShifts} />
+    </ChakraProvider>,
+    root
+  );
 })();

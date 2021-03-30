@@ -1,6 +1,5 @@
 import { MessengerInterface } from './lib/messenger';
-import { RouterActions, routerActions, ROUTER_KEY } from './store/router';
-import { Overwrite } from './types/interfaces';
+import { RouterActions, ROUTER_KEY } from './store/router';
 
 const logJob = (payload: any): void => {
   // Don't erase this console log
@@ -9,6 +8,8 @@ const logJob = (payload: any): void => {
 
 const onMessageListener = function (message: MessengerInterface) {
   const { namespace, action, payload } = message;
+
+  console.log(action);
   switch (namespace) {
     case 'COMMON': {
       if (action === 'log') {

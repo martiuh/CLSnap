@@ -1,6 +1,8 @@
 import React from 'react';
 import { ShifterState } from '../store/shifter';
-import { Box, HStack } from '@chakra-ui/react';
+import { HStack, Button, AspectRatio, Box, chakra } from '@chakra-ui/react';
+import { ShiftTile } from './inspector.components/ShiftTile';
+import { useSelected } from './inspector.hooks/useSelected';
 // Access the shifter state
 // Load the data from the url
 
@@ -8,21 +10,46 @@ type InspectorProps = {
   shifts: ShifterState[];
 };
 
+const Main = chakra(Box, {
+  baseStyle: {
+    maxH: '100vh',
+    maxW: '100vw',
+  },
+});
+
 export function Inspector(props: InspectorProps) {
   const { shifts } = props;
-  const [shift] = shifts;
+  const { currentItem, currentIndex, jsxProps, programmatic } = useSelected({
+    items: shifts,
+  });
 
-  if (!shift) {
-    return <main>No CLS</main>;
+  const { nextHandler, prevHandler } = jsxProps;
+  const { selectItem } = programmatic;
+
+  if (!currentItem) {
+    return <Main>No CLS</Main>;
   }
+
   return (
-    <main>
-      <HStack>
+    <Main>
+      <HStack spacing="1" mb="5">
         {shifts.map(({ id }, index) => (
-          <Box key={id}>{index + 1}</Box>
+          <ShiftTile
+            key={id}
+            onClick={() => selectItem(index)}
+            selected={index === currentIndex}
+          >
+            {index + 1}
+          </ShiftTile>
         ))}
       </HStack>
-      <div dangerouslySetInnerHTML={{ __html: shift.node }} />
-    </main>
+      <HStack mbt="5">
+        <Button {...prevHandler}>Prev</Button>
+        <Button {...nextHandler}>Next</Button>
+      </HStack>
+      <AspectRatio maxW="80vw" ratio={4 / 3}>
+        <iframe src={currentItem.dataUri} />
+      </AspectRatio>
+    </Main>
   );
 }
