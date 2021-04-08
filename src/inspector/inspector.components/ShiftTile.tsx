@@ -14,11 +14,7 @@ const useMode = (value: boolean) => {
 export function ShiftTile(props: ShiftTileProps): JSX.Element {
   const { onClick, children, selected } = props;
   return (
-    <Button
-      onClick={onClick}
-      colorScheme={selected ? 'cyan' : 'green'}
-      variant="outline"
-    >
+    <Button onClick={onClick} colorScheme={selected ? 'blue' : 'cyan'}>
       {children}
     </Button>
   );

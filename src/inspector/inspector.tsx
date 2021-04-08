@@ -31,23 +31,25 @@ export function Inspector(props: InspectorProps) {
   }
 
   return (
-    <Main>
-      <HStack spacing="1" mb="5">
-        {shifts.map(({ id }, index) => (
-          <ShiftTile
-            key={id}
-            onClick={() => selectItem(index)}
-            selected={index === currentIndex}
-          >
-            {index + 1}
-          </ShiftTile>
-        ))}
-      </HStack>
-      <HStack mbt="5">
-        <Button {...prevHandler}>Prev</Button>
-        <Button {...nextHandler}>Next</Button>
-      </HStack>
-      <AspectRatio maxW="80vw" ratio={4 / 3}>
+    <Main bgColor="blue.50">
+      <Box p="2">
+        <HStack spacing="1" my="2" justifyContent="center">
+          {shifts.map(({ id }, index) => (
+            <ShiftTile
+              key={id}
+              onClick={() => selectItem(index)}
+              selected={index === currentIndex}
+            >
+              {index + 1}
+            </ShiftTile>
+          ))}
+        </HStack>
+        <HStack my="2" justifyContent="center">
+          <Button {...prevHandler}>Prev</Button>
+          <Button {...nextHandler}>Next</Button>
+        </HStack>
+      </Box>
+      <AspectRatio maxW="100vw" ratio={4 / 3} border="red" borderWidth="1px">
         <iframe src={currentItem.dataUri} />
       </AspectRatio>
     </Main>
