@@ -1,70 +1,12 @@
-# Chrome Extension TypeScript Starter
+# LayoutChecker
 
-![build](https://github.com/chibat/chrome-extension-typescript-starter/workflows/build/badge.svg)
+![Ocean from above with a small person relaxing at the shore](/src/public/leio-mclaren-leiomclaren-com-S4W2AU0t3lw-unsplash)
+Thanks [Leio McLaren](leiomclaren.com) for that incredible [photo](https://unsplash.com/photos/S4W2AU0t3lw)
 
-Chrome Extension, TypeScript and Visual Studio Code
+Record every layout shift happening and inspect it.
 
-## Prerequisites
+![build](https://github.com/martiuh/layoutchecker/workflows/build/badge.svg)
 
-* [node + npm](https://nodejs.org/) (Current Version)
+Useful you taking a slow look at your site when the CLS is happening
 
-## Option
-
-* [Visual Studio Code](https://code.visualstudio.com/)
-
-## Includes the following
-
-* TypeScript
-* Webpack
-* React
-* Jest
-* Example Code
-    * Chrome Storage
-    * Options Version 2
-    * content script
-    * count up badge number
-    * background
-
-## Project Structure
-
-* src/typescript: TypeScript source files
-* src/assets: static files
-* dist: Chrome Extension directory
-* dist/js: Generated JavaScript files
-
-## Setup
-
-```
-npm install
-```
-
-## Import as Visual Studio Code project
-
-...
-
-## Build
-
-```
-npm run build
-```
-
-## Build in watch mode
-
-### terminal
-
-```
-npm run watch
-```
-
-### Visual Studio Code
-
-Run watch mode.
-
-type `Ctrl + Shift + B`
-
-## Load extension to chrome
-
-Load `dist` directory
-
-## Test
-`npx jest` or `npm run test`
+Initiated from [Chrome Extension TypeScript Starter](https://github.com/chibat/chrome-extension-typescript-starter)
