@@ -21,7 +21,9 @@ Sometimes when I'm inspecting a website and having multiple CLS changes at once,
 TODO: Add Images
 
 **Reload and Record** - Refreshes a new window and immediately start recording
+
 **Record** - Start tracking the CLS occurring in the moment
+
 **Stop** - Don't record more and go to the Inspector page
 
 ### Inspector page
@@ -29,6 +31,7 @@ TODO: Add Images
 TODO: Add Images
 
 **Frame bar** - Useful for toggling manually clicking into each frame
+
 **Web Inspector** - It's the exact HTML that was in the document when an CLS happened
 
 Initiated from [Chrome Extension TypeScript Starter](https://github.com/chibat/chrome-extension-typescript-starter)
