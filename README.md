@@ -1,6 +1,6 @@
 # LayoutChecker
 
-![Ocean from above with a small person relaxing at the shore](/src/public/leio-mclaren-leiomclaren-com-S4W2AU0t3lw-unsplash)
+![Ocean from above with a small person relaxing at the shore](/public/leio-mclaren-leiomclaren-com-S4W2AU0t3lw-unsplash.jpg)
 Thanks [Leio McLaren](leiomclaren.com) for that incredible [photo](https://unsplash.com/photos/S4W2AU0t3lw)
 
 Record every layout shift happening and inspect it.
