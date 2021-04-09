@@ -9,7 +9,6 @@ const logJob = (payload: any): void => {
 const onMessageListener = function (message: MessengerInterface) {
   const { namespace, action, payload } = message;
 
-  console.log(action);
   switch (namespace) {
     case 'COMMON': {
       if (action === 'log') {
