@@ -1,4 +1,4 @@
-# LayoutChecker
+# CLSnap
 
 Record every layout shift happening and inspect it.
 
