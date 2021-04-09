@@ -1,6 +1,11 @@
 # LayoutChecker
 
-![Ocean from above with a small person relaxing at the shore](/public/leio-mclaren-leiomclaren-com-S4W2AU0t3lw-unsplash.jpg)
+![]()
+
+<p align="center">
+  <img width="460" height="300" src="/public/leio-mclaren-leiomclaren-com-S4W2AU0t3lw-unsplash.jpg"  alt="Ocean from above with a small person relaxing at the shore" >
+</p>
+
 Thanks [Leio McLaren](leiomclaren.com) for that incredible [photo](https://unsplash.com/photos/S4W2AU0t3lw)
 
 Record every layout shift happening and inspect it.
